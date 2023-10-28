@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { fontSize } from "../../utils/theme";
 
 const CategoryCard = (props) => {
-  const { title, color } = props;
-
+  const { title, color, id } = props;
+  const { navigate } = useNavigation();
+  const onNavigate = useCallback(
+    () => navigate("MealsOverview", { categoryId: id }),
+    [navigate, id]
+  );
   return (
     <View style={styles.container}>
       <Pressable
@@ -14,6 +19,7 @@ const CategoryCard = (props) => {
             ? { ...styles.pressableArea, opacity: 0.5 }
             : styles.pressableArea
         }
+        onPress={onNavigate}
       >
         <View style={[styles.titleWrapper, { backgroundColor: color }]}>
           <Text style={styles.title}>{title}</Text>
