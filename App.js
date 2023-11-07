@@ -1,16 +1,15 @@
 import { StatusBar } from "expo-status-bar";
-import 'react-native-gesture-handler';
+import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SafeAreaView from "./src/components/shared/SafeAreaView";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import CategoriesList from "./src/screens/CategoriesList";
 import MealsOverview from "./src/screens/MealsOverview";
-import { CATEGORIES, } from "./src/utils/data";
+import { CATEGORIES } from "./src/utils/data";
 import MealDetails from "./src/screens/MealDetails";
+import DrawerNavigator from "./src/Providers/DrawerNavigator";
 
 const Stack = createNativeStackNavigator();
-
 const App = () => (
   <>
     <StatusBar style="light" />
@@ -25,11 +24,11 @@ const App = () => (
             }}
           >
             <Stack.Screen
-              name="CategoriesList"
-              component={CategoriesList}
+              name="HomeDrawer"
+              component={DrawerNavigator}
               options={{
                 title: "Categories list",
-                headerLargeTitle: "Categories list",
+                headerShown: false,
               }}
             />
             <Stack.Screen
@@ -41,14 +40,12 @@ const App = () => (
                   (cat) => cat.id === categoryId
                 );
                 return {
+                  headerBackTitle: "Categories list",
                   title: selectedCategory?.title,
                 };
               }}
             />
-            <Stack.Screen
-              name="MealDetails"
-              component={MealDetails}
-            />
+            <Stack.Screen name="MealDetails" component={MealDetails} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaView>
