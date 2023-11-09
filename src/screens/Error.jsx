@@ -2,13 +2,11 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { FONTS } from '../utils/fontVariants';
 
-const Error = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.errMsg}>Somthing went wrong!</Text>
-    </View>
-  );
-};
+const Error = () => (
+  <View style={styles.container}>
+    <Text style={styles.errMsg}>Somthing went wrong!</Text>
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {

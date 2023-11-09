@@ -1,38 +1,21 @@
-import React, { useCallback } from "react";
-import { Image } from "react-native";
-import { StyleSheet, View, Text, Pressable, Platform } from "react-native";
-import {
-  MaterialCommunityIcons,
-  Entypo,
-  FontAwesome5,
-} from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { fontSize } from "../../utils/theme";
+import React, { useCallback } from 'react';
+import { Image } from 'react-native';
+import { StyleSheet, View, Text, Pressable, Platform } from 'react-native';
+import { MaterialCommunityIcons, Entypo, FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { fontSize } from '../../utils/theme';
 
-const MealItem = ({
-  id,
-  title,
-  affordability,
-  complexity,
-  imageUrl,
-  duration,
-}) => {
+const MealItem = ({ id, title, affordability, complexity, imageUrl, duration }) => {
   const { navigate } = useNavigation();
-  const onNavigate = useCallback(
-    () => navigate("MealDetails", { mealId: id }),
-    [navigate, id]
-  );
+  const onNavigate = useCallback(() => navigate('MealDetails', { mealId: id }), [navigate, id]);
   return (
     <View style={styles.container}>
       <Pressable
-        android_ripple={{ color: "#ccc" }}
+        android_ripple={{ color: '#ccc' }}
         style={({ pressed }) =>
-          pressed
-            ? { ...styles.pressableArea, opacity: 0.5 }
-            : styles.pressableArea
+          pressed ? { ...styles.pressableArea, opacity: 0.5 } : styles.pressableArea
         }
-        onPress={onNavigate}
-      >
+        onPress={onNavigate}>
         <View style={styles.imageContainer}>
           <Image source={{ uri: imageUrl }} style={styles.image} />
         </View>
@@ -40,11 +23,7 @@ const MealItem = ({
         <View style={styles.properties}>
           <View style={styles.property}>
             <Text>{duration}</Text>
-            <MaterialCommunityIcons
-              name="timer-settings"
-              size={24}
-              color="black"
-            />
+            <MaterialCommunityIcons name="timer-settings" size={24} color="black" />
           </View>
           <View style={styles.property}>
             <Text>{affordability.toUpperCase()}</Text>
@@ -63,43 +42,43 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 4,
-    overflow: Platform.OS === "android" ? "hidden" : "visible",
+    overflow: Platform.OS === 'android' ? 'hidden' : 'visible',
     elevation: 4,
     shadowRadius: 10,
     shadowOffset: { width: 5, height: 5 },
-    shadowColor: "gray",
+    shadowColor: 'gray',
     shadowOpacity: 0.5,
     marginVertical: 10,
   },
   image: {
-    width: "100%",
+    width: '100%',
     height: 200,
   },
   imageContainer: {
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   title: {
     fontSize: fontSize(20),
-    fontWeight: "700",
-    textAlign: "center",
+    fontWeight: '700',
+    textAlign: 'center',
     marginVertical: 10,
   },
   properties: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: 5,
     paddingVertical: 10,
-    flexWrap: "wrap",
+    flexWrap: 'wrap',
   },
   property: {
     flex: 1,
     padding: 4,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     gap: 2,
   },
   pressableArea: {

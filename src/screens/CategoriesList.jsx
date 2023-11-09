@@ -1,7 +1,7 @@
-import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
-import { CATEGORIES } from "../utils/data";
-import CategoryCard from "../components/categories/CategoryCard";
+import React from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { CATEGORIES } from '../utils/data';
+import CategoryCard from '../components/categories/CategoryCard';
 
 const renderItem = ({ item }) => <CategoryCard {...item} />;
 
