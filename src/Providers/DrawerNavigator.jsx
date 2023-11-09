@@ -29,7 +29,7 @@ const DrawerNavigator = () => (
       component={FavoritesList}
       options={{
         title: 'Favorite meals',
-        drawerIcon: ({ color, size }) => <Ionicons name="star" color={color} size={size} />,
+        drawerIcon: ({ color, size }) => <Ionicons name="heart" color={color} size={size} />,
       }}
     />
   </Drawer.Navigator>
