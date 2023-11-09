@@ -2,19 +2,20 @@ import { useRoute } from "@react-navigation/native";
 import React, { useMemo } from "react";
 import { StyleSheet } from "react-native";
 import { View } from "react-native";
-import { MEALS } from "../utils/data";
 import { FlatList } from "react-native";
 import MealItem from "../components/meals/MealItem";
+import useMeals from "../hooks/useMeals";
 
 const renderItem = ({ item }) => <MealItem {...item} />;
 
 const MealsOverview = () => {
   const { params } = useRoute();
+  const { meals } = useMeals();
   const { categoryId } = params;
 
   const categoryMeals = useMemo(
-    () => MEALS.filter((mealItem) => mealItem.categoryIds.includes(categoryId)),
-    [categoryId]
+    () => meals.filter((mealItem) => mealItem.categoryIds.includes(categoryId)),
+    [meals, categoryId]
   );
 
   return (

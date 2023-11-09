@@ -1,51 +1,45 @@
-import React, { useLayoutEffect, useMemo } from "react";
+import React, { useCallback, useLayoutEffect, useMemo } from "react";
 import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  MaterialCommunityIcons,
-  Entypo,
-  FontAwesome5,
-} from "@expo/vector-icons";
-import { MEALS } from "../utils/data";
+import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
 import MealSection from "../components/meals/MealSection";
 import HeaderRight from "../components/shared/HeaderRight";
+import useMeals from "../hooks/useMeals";
 
 const MealDetails = () => {
-  const {setOptions} = useNavigation()
+  const { setOptions } = useNavigation();
   const { params } = useRoute();
+  const { favoriteMeals, addToFav, removeFromFav, meals } = useMeals();
   const { mealId } = params;
 
   const meal = useMemo(
-    () => MEALS.find((mealItem) => mealItem.id === mealId),
-    [mealId]
+    () => meals.find((mealItem) => mealItem.id === mealId),
+    [mealId, meals]
+  );
+  const { affordability, imageUrl, duration, ingredients, steps, isVegan, id } =
+    meal;
+
+  const isFavorite = useMemo(
+    () => favoriteMeals.map(({ id }) => id).includes(mealId),
+    [favoriteMeals, mealId]
   );
 
-  const {
-    categoryIds,
-    title,
-    affordability,
-    complexity,
-    imageUrl,
-    duration,
-    ingredients,
-    steps,
-    isGlutenFree,
-    isVegan,
-    isVegetarian,
-    isLactoseFree,
-  } = meal;
+  const handleToggleFav = useCallback(() => {
+    if (isFavorite) {
+      removeFromFav(id);
+      return;
+    }
+    addToFav(id);
+  }, [isFavorite, addToFav, removeFromFav, id]);
 
-  useLayoutEffect(()=>{
+  useLayoutEffect(() => {
     setOptions({
       title: meal?.title,
       headerRight: () => (
-        <HeaderRight
-          isFavorite
-          onSwitch={(fav) => console.log(fav)}
-        />
-      )                  
-    })
-  },[setOptions,meal])
+        <HeaderRight isFavorite={isFavorite} onPress={handleToggleFav} />
+      ),
+    });
+  }, [setOptions, meal, isFavorite, handleToggleFav]);
 
   return (
     <ScrollView style={styles.rootContainer}>
